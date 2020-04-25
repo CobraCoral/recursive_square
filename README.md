@@ -23,7 +23,7 @@ The interesting bit is the "forward" delta which is our arithmetic series of odd
 
 But if we are going backwards, our "backward" delta for (N-1) will be:
 ![equation](http://latex.codecogs.com/png.latex?2%28N-1%29&plus;1%20%5Crightarrow%202N%20-2%20&plus;%201%20%5Crightarrow%202N-1)
-which means we can just use 2N-1 when on (N-1) to pre-compute that delta when we are computing the square number of (N-1).
+which means we can just store 2N when computing Square(N), and add +1 for the forward delta or decrease with -1 for the backward delta as needed.
 
 To be clearer: If N=3, and you want to go "forward" (N+1), you use:
 - ![equation](http://latex.codecogs.com/png.latex?Square%283%29%20&plus;%20%7BForwardDelta%7D%283%29%20%5CRightarrow%209%20&plus;%207%20%5CRightarrow%2016%20%5Cequiv%20Square%284%29)
