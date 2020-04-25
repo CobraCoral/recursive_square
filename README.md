@@ -18,15 +18,20 @@
 So as an example:
 ![equation](http://latex.codecogs.com/png.latex?3%5E2%20%5CRightarrow%202%5E2%20&plus;%202*2%20&plus;%201%20%3D%209). This is easy.
 
-The interesting bit is the delta which is our arithmetic series of odd numbers as seen above: 
+The interesting bit is the "forward" delta which is our arithmetic series of odd numbers as seen above: 
 ![equation](http://latex.codecogs.com/png.latex?%28N%5E2%29%20-%20%28N-1%29%5E2%20%3D%202N&plus;1)
 
-So if we take N=3, we have 9 - 4 == 5.
-Therefore, for N=3, we have Progression=5 and Square=9.
-
-But if we are on (N-1), then the formula is:
+But if we are going backwards, our "backward" delta for (N-1) will be:
 ![equation](http://latex.codecogs.com/png.latex?2%28N-1%29&plus;1%20%5Crightarrow%202N%20-2%20&plus;%201%20%5Crightarrow%202N-1)
-which means we can just use 2N-1 when on (N-1) to pre-compute that delta when we are computing the square number of (N-1). So the arithmetic progression is:
+which means we can just use 2N-1 when on (N-1) to pre-compute that delta when we are computing the square number of (N-1).
+
+To be clearer: If N=3, and you want to go "forward" (N+1), you use:
+- ![equation](http://latex.codecogs.com/png.latex?Square%283%29%20&plus;%20%7BForwardDelta%7D%283%29%20%5CRightarrow%209%20&plus;%207%20%5CRightarrow%2016%20%5Cequiv%20Square%284%29)
+
+And if N=3, and you want to go "backward" (N-1), you use:
+- ![equation](http://latex.codecogs.com/png.latex?Square%283%29%20-%20%7BBackwardDelta%7D%283%29%20%5CRightarrow%209%20-%205%20%5CRightarrow%204%20%5Cequiv%20Square%282%29)
+
+So the arithmetic "forward" progression is then:
 |             |||||||||||
 | ----------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 |          N: |   1|  2|  3| 4 | 5 |  6 |  7 |  8 |  9 | 10 |
