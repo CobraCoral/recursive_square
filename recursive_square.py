@@ -24,7 +24,8 @@ memoization_decorator.dictionary = {0: (-1, 0)}
 def recursive_square(number):
     """Compute the square of N as described by the recursive algorithm."""
     if number < 0:
-        return recursive_square(-number)
+        prog, square = recursive_square(-number)
+        return (-prog, square)
     if number == 0:
         return (-1, 0)
     n_minus1_prog, n_minus1_square = recursive_square(number - 1)
@@ -41,7 +42,8 @@ def recursive_square_tail(number):
     # print("recursive square tail", number)
     def recursive_square_tail_full(number, prog, square):
         if number < 0:
-            return recursive_square_tail(-number)
+            prog, square = recursive_square_tail(-number)
+            return (-prog, square)
         # print(".... full", number, prog, square)
         if number == 0:
             return (prog, square)
