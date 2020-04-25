@@ -45,8 +45,10 @@ And the backward progression is 2N-1. i.e. 2+2+2+...+2 n times - 1.
 So we see that for each number N, Square(N+1) == Square(N) + FWD Progression(N), and Square(N-1) == Square(N) - BWD Progression(N).
 
 And the square of each number is always the progression, plus the previous number squared, recursively as follows:
-- ![equation](http://latex.codecogs.com/png.latex?Progression%28N%29%20%5Crightarrow%20Progression%28N-1%29%20&plus;%202%20%3D%20%28N*2-1%29)
-- ![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Progression%28N%29%20&plus;%20Square%28N-1%29%2C%20%5Cforall%20N)
+- ![equation](http://latex.codecogs.com/png.latex?Progression%28N%29%5Crightarrow%20Progression%28N-1%29&plus;2)
+- ![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Square%28N-1%29%20&plus;%20%7BBackwardProgression%7D%28N%29)
+OR
+- ![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Square%28N-1%29%20&plus;%20%7BForwardProgression%7D%28N-1%29)
 
 #### NOTE: As we will be using recursion and we want to avoid multiplications, we will assume N>=0.
 
