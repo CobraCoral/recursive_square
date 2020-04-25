@@ -36,7 +36,7 @@ So the arithmetic "forward" progression is then:
 | ----------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 |          N: |   1|  2|  3| 4 | 5 |  6 |  7 |  8 |  9 | 10 |
 |     Square: |   1| 4| 9| 16| 25| 36| 49| 64| 81| 100 |
-|Progression [Square(N) - Square(N-1)]: |   1| 3| 5| 7| 9| 11| 13| 15| 17| 19 |
+|Progression [Square(N) - Square(N-1)]: |   1| 5| 7| 9| 11| 13| 15| 17| 19 |21|
 
 Therefore, for a given number N, the backward progression is 2N-1, or in other words, 2*(N-1) + 1.
 (i.e. 1 + 2+2+...+2 n-1 times).
