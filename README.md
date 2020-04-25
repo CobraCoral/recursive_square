@@ -39,8 +39,8 @@ Therefore, for a given number N, the progression is (2*N)-1, or in other words, 
 So we see that for each number N, its power of 2 will be the power of two of the previous number, plus a constant (2N-1).
 
 And the square of each number is always the progression, plus the previous number squared, recursively as follows:
-![equation](http://latex.codecogs.com/png.latex?Progression%28N%29%20%5Crightarrow%20Progression%28N-1%29%20&plus;%202%20%3D%20%28N*2-1%29)
-![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Progression%28N%29%20&plus;%20Square%28N-1%29%2C%20%5Cforall%20N)
+- ![equation](http://latex.codecogs.com/png.latex?Progression%28N%29%20%5Crightarrow%20Progression%28N-1%29%20&plus;%202%20%3D%20%28N*2-1%29)
+- ![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Progression%28N%29%20&plus;%20Square%28N-1%29%2C%20%5Cforall%20N)
 
 #### NOTE: As we will be using recursion and we want to avoid multiplications, we will assume N>=0.
 
