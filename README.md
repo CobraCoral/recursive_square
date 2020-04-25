@@ -35,13 +35,13 @@ So the arithmetic "forward" progression is then:
 |             |||||||||||
 | ----------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 |          N: |   1|  2|  3| 4 | 5 |  6 |  7 |  8 |  9 | 10 |
-|     Square: |   1| 4| 9| 16| 25| 36| 49| 64| 81| 100 |
-|Progression [Square(N) - Square(N-1)]: |   3| 5| 7| 9| 11| 13| 15| 17| 19 |21|
+|     Square: |   1|  4|  9| 16| 25| 36 | 49 | 64 | 81 | 100 |
+|FWD Progression [Sq(N) - Sq(N-1)]: |   3| 5| 7| 9| 11| 13| 15| 17| 19 |21|
 
-Therefore, for a given number N, the backward progression is 2N-1, or in other words, 2*(N-1) + 1.
-(i.e. 1 + 2+2+...+2 n-1 times).
+Therefore, for a given number N, the forward progression is 2N+1. i.e. 2+2+...+2 n times + 1.
+And the backward progression is 2N-1. i.e. 2+2+2+...+2 n times - 1.
 
-So we see that for each number N, its power of 2 will be the power of two of the previous number, plus a constant (2N-1).
+So we see that for each number N, Square(N+1) == Square(N) + FWD Progression(N), and Square(N-1) == Square(N) - BWD Progression(N).
 
 And the square of each number is always the progression, plus the previous number squared, recursively as follows:
 - ![equation](http://latex.codecogs.com/png.latex?Progression%28N%29%20%5Crightarrow%20Progression%28N-1%29%20&plus;%202%20%3D%20%28N*2-1%29)
