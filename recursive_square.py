@@ -17,21 +17,22 @@ def memoization_decorator(func):
     return wrapper_decorator
 
 
-memoization_decorator.dictionary = {0: (-1, 0)}
+memoization_decorator.dictionary = {0: (-1, 1, 0)}
 
 
 @memoization_decorator
 def recursive_square(number):
     """Compute the square of N as described by the recursive algorithm."""
     if number < 0:
-        prog, square = recursive_square(-number)
-        return (-prog, square)
+        bwd_prog, fwd_prog, square = recursive_square(-number)
+        return (-fwd_prog, -bwd_prog, square)
     if number == 0:
-        return (-1, 0)
-    n_minus1_prog, n_minus1_square = recursive_square(number - 1)
-    n_prog = n_minus1_prog + 2
-    n_square = n_prog+n_minus1_square
-    result = (n_prog, n_square)
+        return (-1, 1, 0)
+    n_minus1_bwd_prog, n_minus1_fwd_prog, n_minus1_square = recursive_square(number - 1)
+    n_bwd_prog = n_minus1_bwd_prog + 2
+    n_fwd_prog = n_minus1_fwd_prog + 2
+    n_square = n_minus1_fwd_prog + n_minus1_square
+    result = (n_bwd_prog, n_fwd_prog, n_square)
     # print("recursive", number, result)
     return result
 
@@ -40,19 +41,20 @@ def recursive_square(number):
 def recursive_square_tail(number):
     """Compute tail recursive square of N."""
     # print("recursive square tail", number)
-    def recursive_square_tail_full(number, prog, square):
+    def recursive_square_tail_full(number, bprog, fprog, square):
         if number < 0:
-            prog, square = recursive_square_tail(-number)
-            return (-prog, square)
+            bwd_prog, fwd_prog, square = recursive_square_tail(-number)
+            return (-fwd_prog, -bwd_prog, square)
         # print(".... full", number, prog, square)
         if number == 0:
-            return (prog, square)
+            return (bprog, fprog, square)
         result = recursive_square_tail_full(number - 1,
-                                            prog + 2,
-                                            prog + square + 2)
+                                            bprog + 2,
+                                            fprog + 2,
+                                            bprog + square + 2)
         # print("     tail", number, result)
         return result
-    return recursive_square_tail_full(number, -1, 0)
+    return recursive_square_tail_full(number, -1, 1, 0)
 
 import sys
 if __name__ == "__main__":
@@ -60,7 +62,6 @@ if __name__ == "__main__":
     print(5, recursive_square_tail(5))
     for num in range(-10, 11, 1):
         print(num, recursive_square_tail(num))
-    sys.exit(0)
     def doit(forward=True):
         """Compute recursion and tail recursion, and prints results."""
         if forward:
@@ -70,13 +71,13 @@ if __name__ == "__main__":
         for num in range_is:
             recur = recursive_square(num)
             tail = recursive_square_tail(num)
-            fmt_short = 'n^2({:^5}) = {:>5}  ... ({:^5})'
+            fmt_short = 'n^2({:^5}) = {:>5}  ... (bwd:{:^5}, fwd:{:^5})'
             fmt_long = '%s       ....     %s' % (fmt_short, fmt_short)
             if recur != tail:
-                print(fmt_long.format(num, recur[1], recur[0],
-                                      num, tail[1], tail[0]))
+                print(fmt_long.format(num, recur[2], recur[0], recur[1],
+                                      num, tail[2], tail[0], tail[1]))
             else:
-                print(fmt_short.format(num, recur[1], recur[0]))
+                print(fmt_short.format(num, recur[2], recur[0], recur[1]))
     doit()
     doit(False)
     doit()
