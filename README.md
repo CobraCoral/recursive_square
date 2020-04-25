@@ -1,29 +1,22 @@
 # Computes square number of N recursively, without multiplication.
 
-## Problem: We want to know N^2 without doing N*N.
-
-### Property 1: Square of 0 is 0 (zero product property).
-### Property 2: Square of 1 is 1. (as 1 is the identity for multiplication).
-### Property 3: Square of -1 is 1. (as negative multiplied by negative is positive).
-### Property 4: Square of (N+1) = N^2 + 2N + 1 (the quadratic polynomial formula).
+## Problem: We want to know N^2 without doing N*N, or any multiplication for that matter.
 
 ## Knowing from Quadratic Formula that:
 ![equation](http://latex.codecogs.com/png.latex?%28N&plus;1%29%5E2%20%3D%20N%5E2%20&plus;%202N%20&plus;%201)
 
-## Another way to see it is by looking at the delta of two consecutive square numbers:
+## If we look at the delta of two consecutive square numbers:
 ![equation](http://latex.codecogs.com/png.latex?%28N&plus;1%29%5E2%20-%20N%5E2%20%3D%20N%5E2%20&plus;2N%20&plus;1%20-%20N%5E2%20%5CRightarrow%202N%20&plus;%201)
 
-#### 2N + 1 is the arithmetic series of odd numbers.
+#### We get 2N + 1.  This is the arithmetic series of odd numbers.
 
-So as an example:
-![equation](http://latex.codecogs.com/png.latex?3%5E2%20%5CRightarrow%202%5E2%20&plus;%202*2%20&plus;%201%20%3D%209). This is easy.
-
-The interesting bit is the "forward" delta which is our arithmetic series of odd numbers as seen above: 
+If you want to go forward (to the next square), we need the "forward" delta which is our arithmetic series of odd numbers as seen above:
 ![equation](http://latex.codecogs.com/png.latex?%28N%5E2%29%20-%20%28N-1%29%5E2%20%3D%202N&plus;1)
 
-But if we are going backwards, our "backward" delta for (N-1) will be:
+But if we are going backwards, our "backward" delta for (N-1)^2 will be:
 ![equation](http://latex.codecogs.com/png.latex?2%28N-1%29&plus;1%20%5Crightarrow%202N%20-2%20&plus;%201%20%5Crightarrow%202N-1)
-which means we can just store 2N when computing Square(N), and add +1 for the forward delta or decrease with -1 for the backward delta as needed.
+
+The idea is to store 2N whenever computing Square(N), and add +1 for the forward delta (if computing Square(N+1)) or decrease with -1 for the backward delta as needed (if computing Square(N-1)).
 
 To be clearer: If N=3, and you want to go "forward" (N+1), you use:
 - ![equation](http://latex.codecogs.com/png.latex?Square%283%29%20&plus;%20%7BForwardDelta%7D%283%29%20%5CRightarrow%209%20&plus;%207%20%5CRightarrow%2016%20%5Cequiv%20Square%284%29)
@@ -61,15 +54,18 @@ Eq. 1 is the basis for the recursive approach. Eq. 2 for the iterative approach.
 
 Recursive program:
 ```
-Square(int n)
+Square(n)
 if (n<0) return Square(-n)
-if (n==0) return 0
-return Square(n-1)+2*n-1
+if (n==0) return (-1, 0)
+fwd_progression_n_minus_1, square_n_minus_1 = Square(n-1)
+fwd_progression_n = fwd_progression_n_minus_1 + 2
+square_n = fwd_progression_n + square_n_minus_1
+return (fwd_progression_n, square_n)
 ```
 
 Iterative program:
 ```
-Square(int n)
+Square(n)
 if (n<0) return Square(-n)
 if (n==0) return 0
 result=-n
