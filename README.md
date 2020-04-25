@@ -50,6 +50,34 @@ And the square of each number is always the progression, plus the previous numbe
 OR
 - ![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Square%28N-1%29%20&plus;%20%7BForwardProgression%7D%28N-1%29)
 
+It will suffice to focus on cases where n>=0, and use Square(n) = Square(-n) when n<0.
+Square(0) = 0
+For all n, Square(n) = Square(n-1) + 2n-1 (Eq. 1)
+So if n>0, Square(n) = Square(0)+[2*1-1]+[2*2-1]+...+[2*n-1] (by using Eq. 1 n times)
+That is, Square(n)=[2*1-1]+[2*2-1]+...+[2*n-1]=2*(1+2+...+n)-n (Eq. 2)
+Note that Eq. 2 is consistent with (in fact, a proof of) the well-know fact that 1 + 2 +...+ n = n(n+1)/2.
+
+Eq. 1 is the basis for the recursive approach. Eq. 2 for the iterative approach.
+
+Recursive program:
+```
+Square(int n)
+if (n<0) return Square(-n)
+if (n==0) return 0
+return Square(n-1)+2*n-1
+```
+
+Iterative program:
+```
+Square(int n)
+if (n<0) return Square(-n)
+if (n==0) return 0
+result=-n
+for (i from 1 to n)
+    result += 2*i
+return result
+```
+
 #### NOTE: As we will be using recursion and we want to avoid multiplications, we will assume N>=0.
 
 | N   |              Prog |   Square | Result| Comments |
