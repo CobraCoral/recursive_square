@@ -57,9 +57,10 @@ Recursive program:
 Square(n)
 if (n<0) return Square(-n)
 if (n==0) return (-1, 0)
-fwd_progression_n_minus_1, square_n_minus_1 = Square(n-1)
+fwd_progression_n_minus_1, bwd_progression_n_minus_1, square_n_minus_1 = Square(n-1)
+bwd_progression_n = bwd_progression_n_minus_1 + 2
 fwd_progression_n = fwd_progression_n_minus_1 + 2
-square_n = fwd_progression_n + square_n_minus_1
+square_n = fwd_progression_n_minus_1 + square_n_minus_1
 return (fwd_progression_n, square_n)
 ```
 
@@ -74,21 +75,21 @@ for (i from 1 to n)
 return result
 ```
 
-#### NOTE: As we will be using recursion and we want to avoid multiplications, we will assume N>=0.
+#### NOTE: The table below uses the Square(N) = Square(N-1) + ForwardProgression(N-1)
 
-| N   |              Prog |   Square | Result| Comments |
+| N   |          FWD Prog |   Square | Result| Comments |
 | :---: | -----------------: | :--------: | :-----: | :-------- |
 |.     |                   |          |       |          |
 |.     |                   |          |       |          |
-|-2    |             -3|  (-5 + 9) | {  4}|              |
-|-1    |            -1|  (-3 + 4) | {  1}|              |
+|-2    |             -5|  (-5 + 9) | {  4}|              |
+|-1    |            -3|  (-3 + 4) | {  1}|              |
 | 0    |            -1|  (-1 + 1) | {  0}|              |
 | 1    |             1|  ( 1 + 0) | {  1}|              |
 | 2    |             3|  ( 3 + 1) | {  4}  | 3 is previous Prog (1) + 2|
 | 3    |             5|  ( 5 + 4) | {  9}  | 5 is previous Prog (3) + 2|
 | 4    |             7|  ( 7 + 9) | { 16}  | 7 is prev. Prog (5) + 2|
 | 5    |              9|  ( 9 + 16) |{ 25} |  and so on... |
-| 6    |             11|  (11 + 25)| { 36}|              |
+| 6    |            11|  (11 + 25)| { 36}|              |
 | 7    |             13|  (13 + 36)| { 49}|              |
 | 8    |             15|  (15 + 49)| { 64}|              |
 | 9    |             17|  (17 + 64)| { 81}|              |
