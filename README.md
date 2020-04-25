@@ -1,4 +1,4 @@
-#Computes square number of N recursively, without multiplication.
+# Computes square number of N recursively, without multiplication.
 
 Problem: We want to know N^2 without doing N*N.
 
