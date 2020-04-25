@@ -16,21 +16,19 @@ Another way to see it is by looking at the delta of two consecutive square numbe
 
 So 2N + 1 is the arithmetic series of odd numbers.
 
-The deltas of each number follow an this progression of +2 always,
-starting at 1 for 1 square.
+So as an example, 3**2 (9) is 2**2 (4) + 2*2 + 1 (5) == 9. This is easy.
 
-So the arithmetic progression is:
+The interesting bit is that for N=3, the delta of {9} (N^2) - {4} (N-1)^2 == 5 (2N+1) ...
+But if we are on (N-1), then the formula is: 2(N-1)+1 -> 2N -2 + 1 -> 2N-1, which means we can compute the delta we need for N when we are computing the square number of (N-1). We can just use 2N-1 when on (N-1) to pre-compute that delta when we are computing the square number of (N-1).  So the arithmetic progression is:
           N:    1  2  3  4  5   6   7   8   9  10
 Progression:    1, 3, 5, 7, 9, 11, 13, 15, 17, 19
-Therefore, for a given number N, the progression is (2*N)-1,
-or in other words, 2*(N-1) + 1.
+
+Therefore, for a given number N, the progression is (2*N)-1, or in other words, 2*(N-1) + 1.
 (i.e. 1 + 2+2+...+2 n-1 times).
 
-So we see that for each number N, its power of 2 will be the power of two
-of the previous number, plus a constant (always a factor of 2).
+So we see that for each number N, its power of 2 will be the power of two of the previous number, plus a constant (always a factor of 2).
 
-And the square of each number is always the progression, plus the previous
-number squared, recursively as follows:
+And the square of each number is always the progression, plus the previous number squared, recursively as follows:
     Progression(N) = Progression(N-1) + 2 => (N*2-1)
          Square(N) = Progression(N) + Square(N-1), for every N.
 NOTE: As we will be using recursion and we want to avoid multiplications, we will assume N>=0.
