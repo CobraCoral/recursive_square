@@ -2,10 +2,10 @@
 
 ## Problem: We want to know N^2 without doing N*N.
 
-### Axiom 1: Square of 0 is 0 (zero product property).
-### Axiom 2: Square of 1 is 1. (as 1 is the identity for multiplication).
-### Axiom 3: Square of -1 is 1. (as negative multiplied by negative is positive).
-### Axiom 4: Square of (N+1) = N^2 + 2N + 1 (the quadratic polynomial formula).
+### Property 1: Square of 0 is 0 (zero product property).
+### Property 2: Square of 1 is 1. (as 1 is the identity for multiplication).
+### Property 3: Square of -1 is 1. (as negative multiplied by negative is positive).
+### Property 4: Square of (N+1) = N^2 + 2N + 1 (the quadratic polynomial formula).
 
 ## Knowing from Quadratic Formula that:
 ![equation](http://latex.codecogs.com/png.latex?%28N&plus;1%29%5E2%20%3D%20N%5E2%20&plus;%202N%20&plus;%201)
