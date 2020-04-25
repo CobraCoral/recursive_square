@@ -43,15 +43,17 @@ And the square of each number is always the progression, plus the previous numbe
 OR
 - ![equation](http://latex.codecogs.com/png.latex?Square%28N%29%20%3D%20Square%28N-1%29%20&plus;%20%7BForwardProgression%7D%28N-1%29)
 
-It will suffice to focus on cases where n>=0, and use Square(n) = Square(-n) when n<0.
-Square(0) = 0
-For all n, Square(n) = Square(n-1) + 2n-1 (Eq. 1)
-So if n>0, Square(n) = Square(0)+[2*1-1]+[2*2-1]+...+[2*n-1] (by using Eq. 1 n times)
-That is, Square(n)=[2*1-1]+[2*2-1]+...+[2*n-1]=2*(1+2+...+n)-n (Eq. 2)
-Note that Eq. 2 is consistent with (in fact, a proof of) the well-know fact that 1 + 2 +...+ n = n(n+1)/2.
-
-Eq. 1 is the basis for the recursive approach. Eq. 2 for the iterative approach.
-
+It will suffice to focus on cases where n>=0, and use:
+- ![equation](http://latex.codecogs.com/png.latex?Square%28n%29%20%3D%20Square%28-n%29%20%7B%5Ctextup%7B%20when%20%7D%7D%20n%3C0)
+- ![equation](http://latex.codecogs.com/png.latex?Square%280%29%20%3D%200)
+- ![equation](http://latex.codecogs.com/png.latex?%5Cforall%20n%2C%20Square%28n%29%20%3D%20Square%28n-1%29%20&plus;%202n-1%20%5Ctextup%7B%20%28Eq.%201%29%7D)
+- ![equation](http://latex.codecogs.com/png.latex?%5Ctextup%7BSo%20if%20%7D%20n%3E0%2C%20Square%28n%29%20%3D%20Square%280%29&plus;%5B2*1-1%5D&plus;%5B2*2-1%5D&plus;...&plus;%5B2*n-1%5D%20%5Ctextup%7B%20%28by%20using%20Eq.%201%20n%20times%29%7D)
+- ![equation](http://latex.codecogs.com/png.latex?%5Ctextup%7BThat%20is%2C%20%7D%20Square%28n%29%3D%5B2*1-1%5D&plus;%5B2*2-1%5D&plus;...&plus;%5B2*n-1%5D%3D2*%281&plus;2&plus;...&plus;n%29-n%20%5Ctextup%7B%20%28Eq.%202%29%7D)
+- Note that Eq. 2 is consistent with (in fact, a proof of) the well-know fact that ![equation](http://latex.codecogs.com/png.latex?1%20&plus;%202%20&plus;...&plus;%20n%20%3D%20%5Ctfrac%7Bn%28n&plus;1%29%7D%7B2%7D).
+\
+\
+Eq. 1 is the basis for the recursive approach. Eq. 2 for the iterative approach.\
+\
 Recursive program:
 ```
 Square(n)
