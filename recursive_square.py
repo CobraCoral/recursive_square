@@ -37,27 +37,34 @@ def recursive_square(number):
     return result
 
 
-@memoization_decorator
+#@memoization_decorator
 def recursive_square_tail(number):
     """Compute tail recursive square of N."""
     # print("recursive square tail", number)
-    def recursive_square_tail_full(number, bprog, fprog, square):
+    def recursive_square_tail_full(number, idx, bprog, fprog, square):
+        # print('rsqt: ', number, idx, bprog, fprog, square)
         if number < 0:
             bwd_prog, fwd_prog, square = recursive_square_tail(-number)
             return (-fwd_prog, -bwd_prog, square)
-        # print(".... full", number, prog, square)
+
+        # small optimization
+        if idx not in memoization_decorator.dictionary.keys():
+            memoization_decorator.dictionary[idx] = (bprog, fprog, square)
+
+        # print(".... full", number, idx, bprog, fprog, square)
         if number == 0:
             return (bprog, fprog, square)
-        result = recursive_square_tail_full(number - 1,
-                                            bprog + 2,
-                                            fprog + 2,
-                                            bprog + square + 2)
-        # print("     tail", number, result)
-        return result
-    return recursive_square_tail_full(number, -1, 1, 0)
+        return recursive_square_tail_full(number - 1,
+                                          idx + 1,
+                                          bprog + 2,
+                                          fprog + 2,
+                                          bprog + square + 2)
+    return recursive_square_tail_full(number, 0, -1, 1, 0)
 
 import sys
 if __name__ == "__main__":
+    print(3, recursive_square(3))
+    print(3, recursive_square_tail(3))
     print(-3, recursive_square_tail(-3))
     print(5, recursive_square_tail(5))
     for num in range(-10, 11, 1):
