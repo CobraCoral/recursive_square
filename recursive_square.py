@@ -4,7 +4,7 @@ from functools import wraps
 
 
 def static_vars(**kwargs):
-    """ Decorator to add static variables to functions. """
+    """Add static variables to functions."""
     # print("static_vars", kwargs)
     def wrap(func):
         # print("inside static_vars.wrap")
@@ -95,15 +95,17 @@ def iterative_square(number):
     bwd_prog = -1
     fwd_prog = 1
     square = 0
-    for n in range(0, number):
+    count = number-1
+    while count >= 0:
         square += fwd_prog
         bwd_prog += 2
         fwd_prog += 2
+        count -= 1
     if negative:
         return (-bwd_prog, -fwd_prog, square)
     return (bwd_prog, fwd_prog, square)
 
-import sys
+
 if __name__ == "__main__":
     # print("about to call recursive_square")
     print(3, iterative_square(-3))
@@ -114,32 +116,34 @@ if __name__ == "__main__":
     print(4, recursive_square_tail(4))
     print(-3, recursive_square_tail(-3))
     print(5, recursive_square_tail(5))
-    for num in range(-10, 11, 1):
-        print(num, recursive_square_tail(num))
+    for n in range(-10, 11, 1):
+        print(n, recursive_square_tail(n))
+
     def doit(forward=True):
         """Compute recursion and tail recursion, and prints results."""
+        def compare(label, left, right, num):
+            fmt_short = 'n^2({:^5}) = {:>5}  ... (bwd:{:^5}, fwd:{:^5})'
+            fmt_long = '%s       ....     %s' % (fmt_short, fmt_short)
+            if left != right:
+                print("NOK",
+                      label,
+                      fmt_long.format(num, recur[2], recur[0], recur[1],
+                                      num, tail[2], tail[0], tail[1]))
+            else:
+                print(" OK",
+                      label,
+                      fmt_short.format(num, recur[2], recur[0], recur[1]))
         if forward:
-            range_is = range(1,51)
+            range_is = range(1, 51)
         else:
             range_is = range(50, 0, -1)
         for num in range_is:
             recur = recursive_square(num)
             tail = recursive_square_tail(num)
             iterative = iterative_square(num)
-            def compare(label, left, right):
-                fmt_short = 'n^2({:^5}) = {:>5}  ... (bwd:{:^5}, fwd:{:^5})'
-                fmt_long = '%s       ....     %s' % (fmt_short, fmt_short)
-                if left != right:
-                    print("NOK",
-                          label,
-                          fmt_long.format(num, recur[2], recur[0], recur[1],
-                                          num, tail[2], tail[0], tail[1]))
-                else:
-                    print(" OK",
-                          label,
-                          fmt_short.format(num, recur[2], recur[0], recur[1]))
-            compare("recur x      tail", recur, tail)
-            compare("recur x iterative", recur, iterative)
+
+            compare("recur x      tail", recur, tail, num)
+            compare("recur x iterative", recur, iterative, num)
     doit()
     doit(False)
     doit()
