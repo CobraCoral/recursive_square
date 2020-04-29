@@ -5,8 +5,8 @@ from recursive_square import iterative_square, recursive_square, recursive_squar
 
 class SquareTestCommon():
     def setUp(self):
-        self.range_start = -2
-        self.range_end = 2 + 1
+        self.range_start = -100
+        self.range_end = 100 + 1
         self.function = None
 
     def test(self):
