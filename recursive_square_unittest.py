@@ -1,5 +1,5 @@
 #!/bin/env python3
-"""Test knapsack algorithm implementation."""
+"""Test recursive square algorithm implementation."""
 import unittest
 from recursive_square import iterative_square, recursive_square, recursive_square_tail
 
