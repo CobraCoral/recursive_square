@@ -52,8 +52,9 @@ def recursive_square_tail(number):
             return (-bwd_prog, -fwd_prog, square)
 
         ## small optimization
-        #if idx not in recursive_square_tail.square_cache.keys():
-        #    recursive_square_tail.square_cache[idx] = (bprog, fprog, square)
+        if idx not in recursive_square_tail.square_cache.keys():
+            recursive_square_tail.square_cache[idx] = (bprog, fprog, square)
+
         if number == 0:
             return (bprog, fprog, square)
         return recursive_square_tail_full(number - 1,
