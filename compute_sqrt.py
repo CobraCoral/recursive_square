@@ -80,6 +80,7 @@ def sqrt_binary_search(N, low=0, high=None, iterations=0):
         mid = (high - low) / 2
         newX_square = (low + mid) ** 2
         #print('{:20.012f} {:^12d} {:>20.012f} {:>20.012f} {:>20.012f}'.format(mid, N, abs(N - newX_square), low, high))
+        #print(low, high, mid)
         if newX_square > N:
             high = high - mid
         else:
@@ -117,7 +118,7 @@ def babylonian_sqrt(N, X=None, iterations=0):
     if not X: X = N/2 # seeding our first X ... it can be any number [0,N)
     #if not X: X = 1 # seeding our first X ... it can be any number [0,N)
     while abs(1 - (X**2 / N)) > babylonian_sqrt.error:  # relative error
-        # (Xi + (N / Xi)) / 2
+        #print(N/X, X, (X + (N / X)) / 2)
         X = (X + (N / X)) / 2
         iterations += 1
     return (X, iterations)
