@@ -15,13 +15,32 @@ def sqrt(N, X=None, iterations=0):
     X = some random number between [0, N]
     while abs(N - (X**2)) > ERROR:
         X = X - ((X**2 - N) / (2 * X))
+
+    Babylonian method:
+        Xi: Some guess between [0, N]
+        N: Number we want to find the square root of
+        Formula: (Xi + (N / Xi)) / 2  -> This is also the arithmetic mean of the guess, [Xi, N/Xi]
+    e.g.:
+        Initial X0 = 50
+        >>> X1 = (50 + 100/50)/2
+            26.0
+        >>> X2 = (26 + 100/26)/2
+            14.923076923076923
+        >>> X3 = (14.92 + 100/14.92)/2
+            10.811206434316354
+        >>> X4 = (10.81 + 100/10.81)/2
+            10.030346901017577
+        >>> X5 = (10.0303 + 100/10.0303)/2
+            10.000045765829537
+        >>> X6 = (10.00004 + 100/10.00004)/2
+            10.00000000008
     """
     if N < 0:
         result = sqrt(-N, X, iterations)
         return (complex(result[0], 1), result[1], result[2], result[3], result[4])
     if N == 0: return (0, iterations, 0, 0, 0)
     if N == 1: return (1, iterations, 0, 0, 0)
-    if not X: X = N/2 # seeding our first X ... it can be any number [0,N]
+    if not X: X = N/2 # seeding our first X ... it can be any number [0,N)
     #while abs(N - X**2) > sqrt.error:  # absolute error
     while abs(1 - (X**2/N)) > sqrt.error:  # relative error
         X = X - ((X**2 - N) / (2 * X))
@@ -43,12 +62,12 @@ def recursive_sqrt(N, X=None, iterations=0):
         return (complex(result[0], 1), result[1], result[2], result[3], result[4])
     if N == 0: return (0, iterations, 0, 0, 0)
     if N == 1: return (1, iterations, 0, 0, 0)
-    if not X: X = N/2 # seeding our first X ... it can be any number [0,N]
+    if not X: X = N/2 # seeding our first X ... it can be any number [0,N)
     X_square = X ** 2
     #print('{:20.012f} {:^12d} {:>20.012f}'.format(X, N, abs(N - X_square)))
     newX = X - ((X_square - N) / (2*X)) 
     newX_square = newX ** 2
-    if abs(N - newX_square) <= sqrt.error:
+    if abs(N - newX_square) <= recursive_sqrt.error:
         return (newX, iterations)
     return recursive_sqrt(N, newX, iterations+1)
 recursive_sqrt.error = 0.00000000000001
@@ -78,7 +97,7 @@ def sqrt_binary_search(N, low=0, high=None, iterations=0):
     high = N if not high else high
     mid = 0
     #while abs(N - (low + mid)**2) > sqrt_binary_search.error:  # absolute error
-    while abs(1 - ((low + mid)**2/N)) > sqrt.error:  # relative error
+    while abs(1 - ((low + mid)**2/N)) > sqrt_binary_search.error:  # relative error
         mid = (high - low) / 2
         newX_square = (low + mid) ** 2
         #print('{:20.012f} {:^12d} {:>20.012f} {:>20.012f} {:>20.012f}'.format(mid, N, abs(N - newX_square), low, high))
@@ -126,4 +145,3 @@ if __name__ == '__main__':
         matches = " " if abs(result - result2) <= error else "X"
         #print(abs(result-result2), error, abs(result-result2) <= error)
         print(f'{matches} sqrt({N:>04d}) = newton:{result:>20.12f}    -    binary:{result2:>20.12f} .... {iterations:>4d} vs {iterations2:>4d} iterations   Best: [{winner}]')
-
