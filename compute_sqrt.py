@@ -22,12 +22,14 @@ def sqrt(N, X=None, iterations=0):
     if N == 0: return (0, iterations, 0, 0, 0)
     if N == 1: return (1, iterations, 0, 0, 0)
     if not X: X = N/2 # seeding our first X ... it can be any number [0,N]
-    while abs(N - X**2) > sqrt.error:
+    #while abs(N - X**2) > sqrt.error:  # absolute error
+    while abs(1 - (X**2/N)) > sqrt.error:  # relative error
         X = X - ((X**2 - N) / (2 * X))
         iterations += 1
     absolute_error, relative_error, percent_error = approximation_error(math.sqrt(N), X)
+    #print(absolute_error, relative_error, percent_error)
     return (X, iterations, absolute_error, relative_error, percent_error)
-sqrt.error = 0.000000000001
+sqrt.error = 0.00000000000001
 
 def recursive_sqrt(N, X=None, iterations=0):
     """
@@ -48,8 +50,8 @@ def recursive_sqrt(N, X=None, iterations=0):
     newX_square = newX ** 2
     if abs(N - newX_square) <= sqrt.error:
         return (newX, iterations)
-    return recursive_sqrt(N, newX, iterations+1, 0, 0, 0)
-recursive_sqrt.error = 0.000000000001
+    return recursive_sqrt(N, newX, iterations+1)
+recursive_sqrt.error = 0.00000000000001
 
 def sqrt_binary_search(N, low=0, high=None, iterations=0):
     """
@@ -75,7 +77,8 @@ def sqrt_binary_search(N, low=0, high=None, iterations=0):
     if N == 1: return (1, iterations, 0, 0, 0)
     high = N if not high else high
     mid = 0
-    while abs(N - (low + mid)**2) > sqrt_binary_search.error:
+    #while abs(N - (low + mid)**2) > sqrt_binary_search.error:  # absolute error
+    while abs(1 - ((low + mid)**2/N)) > sqrt.error:  # relative error
         mid = (high - low) / 2
         newX_square = (low + mid) ** 2
         #print('{:20.012f} {:^12d} {:>20.012f} {:>20.012f} {:>20.012f}'.format(mid, N, abs(N - newX_square), low, high))
@@ -85,8 +88,9 @@ def sqrt_binary_search(N, low=0, high=None, iterations=0):
             low = low + mid
         iterations += 1
     absolute_error, relative_error, percent_error = approximation_error(math.sqrt(N), low+mid)
+    #print(absolute_error, relative_error, percent_error)
     return (low + mid, iterations, absolute_error, relative_error, percent_error)
-sqrt_binary_search.error = 0.000000000001
+sqrt_binary_search.error = 0.00000000000001
 
 def recursive_sqrt_binary_search(N, low=0, high=None, iterations=0):
     if N < 0:
@@ -103,7 +107,7 @@ def recursive_sqrt_binary_search(N, low=0, high=None, iterations=0):
     if newX_square > N:
         return recursive_sqrt_binary_search(N, low, high - mid, iterations+1)
     return recursive_sqrt_binary_search(N, low + mid, high, iterations+1)
-recursive_sqrt_binary_search.error = 0.000000000001
+recursive_sqrt_binary_search.error = 0.00000000000001
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -118,7 +122,7 @@ if __name__ == '__main__':
         result, iterations, absolute_error, relative_error, percent_error = sqrt(N)
         result2, iterations2, absolute_error, relative_error, percent_error = sqrt_binary_search(N)
         winner = 'newton' if iterations < iterations2 else 'binary'
-        error = 0.00000000001
+        error = 0.001
         matches = " " if abs(result - result2) <= error else "X"
         #print(abs(result-result2), error, abs(result-result2) <= error)
         print(f'{matches} sqrt({N:>04d}) = newton:{result:>20.12f}    -    binary:{result2:>20.12f} .... {iterations:>4d} vs {iterations2:>4d} iterations   Best: [{winner}]')
